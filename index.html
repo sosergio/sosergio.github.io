@@ -1,96 +1,304 @@
 <html ng-app="demoApp">
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
-<script src="demo.js"></script>
-<script src="eat.js"></script>
-<script src="core/core.js"></script>
-<script src="components/components.js"></script>
-<script src="components/group/group.js"></script>
-<script src="components/group/fast.js"></script>
-<script src="components/memorableDate/memorableDate.js"></script>
-<link rel="stylesheet" href="style/style.css">
-<body>
+<head>
+    <title></title>
+    <meta charset="utf-8"/>
 
-<div ng-controller="appController as vm">
-    <h2>Register</h2>
-    <p>{{vm.message}}</p>
+    <!-- angular-eat dependencies -->
+    <script src="vendor/angular.min.js"></script>
+    <script src="vendor/angular-messages.js"></script>
+    <script type="text/javascript" src="angular-eat.js"></script>
+    <link rel="stylesheet" href="style.css">
     
+    <script type="text/javascript" src="vendor/rainbow.js"></script>
+    <link rel="stylesheet" href="vendor/rainbow.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/default.min.css">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <!--code needed for the demo page, internal -->
+    <link rel="stylesheet" href="demo.css">
+    <script type="text/javascript" src="demo.js"></script>
+        
     <script type="text/ng-template" id="eat-error-messages">
         <div ng-message="required">This field is required</div>
         <div ng-message="minlength">This field is too short</div>
         <div ng-message="min">This field is too short</div>
     </script>
-    
-    <form ng-submit="vm.submit()" novalidate="novalidate">
-        <eat-group>
-            <label>Name</label>
-            <input type='text' minlength="2" required ng-model="vm.user.name"/>
-            <eat-help>Your fullname</eat-help>
-            <eat-messages />
-        </eat-group>
-        <br/>
-        
-        <eat-group-fast 
-            input='email' 
-            ng-model="vm.user.email" 
-            label='Your email' 
-            help='Optional, we are not spamming, promise!'>
-        </eat-group-fast>
-        
-        <br/>
-        <eat-group>
-            <label>Your telephone</label>
-            <input type="tel" required ng-model="vm.user.mobile"/>
-            <eat-help>For example: 07456639814</eat-help>
-            <div ng-messages="projectForm.clientName.$error">
-                <div ng-message="required">This is required.</div>
+</head>
+<body ng-controller="demo as vm">
+    <span class='scroll-debug' scroll-position="vm.scroll"></span>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <div class="pacman"></div> 
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
             </div>
-        </eat-group>
-        
-        <br/>
-        <eat-group-fast 
-            input='eat-memorable-date'
-            required="required"
-            ng-model="vm.user.birthday" 
-            label='Your birthday' 
-            help='For example: 28 2 1976'>
-        </eat-group-fast>
-        
-        <br/>
-        <eat-group>
-            <label>What option you choose</label>
-            <select required ng-model="vm.user.option">
-                <option>uno</option>
-            </select>
-            <eat-help>For example: uno</eat-help>
-        </eat-group>
-        
-        <eat-group-fast 
-            input='number'
-            ng-model="vm.user.childrenCount"
-            ng-change="vm.updateChildren()"
-            label='Children count'>
-        </eat-group-fast>
-        
-        <div ng-repeat="c in vm.user.children">
-            <eat-group-fast 
-                label="Child {{$index+1}}"
-                input='text' 
-                required='required' 
-                ng-model='c.name'
-                help="Name your child">
-            </eat-group-fast>
+            <h1>angular-eat</h1>
+            
         </div>
-        
-         <br/> <br/> <br/>
+    </header>
+    <div class="container">
+            <div class="side-navigation">
+                <div class="list-group" ng-class="{'fixed':vm.scroll > 127}">
+                    <a href="#section-text-input" class="list-group-item">Text Input</a>
+                    <a href="#section-memorable-date-input" class="list-group-item">Memorable Dates Input</a>
+                    <a href="#section-money-input" class="list-group-item">Money Input</a>
+                    <a href="#section-date-input" class="list-group-item">Date Input</a>
+                    <a href="#section-file-input" class="list-group-item">File Input</a>
+                    <a href="#section-textarea" class="list-group-item">Textarea</a>
+                </div>
+            </div>
+            <div class="main-content">
+            
+                <!-- TEXT INPUT -->
+                <div class="section" id="section-text-input">
+                    <h2>Text Input</h2>
+                    <div class="demo-area">
+                        <form>
+                            <eat-group-fast
+                                label="Some Label"
+                                input="text"
+                                required="required" 
+                                ng-model="vm.textInput.model"
+                                help="Hint">
+                            </eat-group-fast>
+                            <br/>
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
+<!-- CODE -->
+<pre><code class="html" format-html>
+<form>
+    <eat-group-fast label="Some Label" 
+    input="text" required="required" ng-model="vm.textInput.model" help="Hint">
+    </eat-group-fast>
     <button type="submit">Submit</button>
-    </form>
-    
-    <div class="debug">
-        object:{{vm.user}}
+</form>
+</code></pre>
+<!-- CODE -->
+vm.textInput.model = "{{vm.textInput.model}}";
+formTextInput.textInput.$error = {{formTextInput.textInput.$error}};
+                </div>
+                
+                <!-- MEMORABLE DATES INPUT -->
+                <div class="section" id="section-memorable-date-input">
+                    <h2>Memorable Date Input</h2>
+                    <p>For capturing memorable dates like dates of birth, the simplest option is to provide text fields for users to type the date in.</p>
+                    <div class="demo-area">
+                        <form>
+                            <eat-group-fast
+                                label="Some Label"
+                                input="eat-memorable-date"
+                                required="required" 
+                                ng-model="vm.memdate"
+                                help="Hint">
+                            </eat-group-fast>
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
+
+                    <uib-tabset>
+                        <uib-tab heading="Markup">
+                            <!-- CODE -->
+                            <pre><code class="html" format-html>
+<form>
+    <eat-group-fast
+        label="Some Label"
+        input="eat-memorable-date"
+        required="required" 
+        ng-model="vm.memdate"
+        help="Hint">
+    </eat-group-fast>
+    <button type="submit">Submit</button>
+</form>
+                    </code></pre>
+                            <!-- CODE -->
+                        </uib-tab>
+                        <uib-tab heading="Javascript">
+                            <!-- CODE -->
+                            <pre><code class="javascript">
+vm.memdate = {{vm.memdate}}
+
+                                                                     
+                    </code></pre>
+                            <!-- CODE -->
+                        </uib-tab>
+                    </uib-tabset>
+                </div>
+
+
+                <!-- MONEY INPUT -->
+                <div class="section" id="section-money-input">
+                    <h2>Money Input</h2>
+                    <div class="demo-area">
+                        <form>
+                             <eat-group-fast
+                                label="Some Label"
+                                input="eat-money"
+                                required="required" 
+                                ng-model="vm.money"
+                                help="Hint">
+                            </eat-group-fast>
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
+
+                    <uib-tabset>
+                        <uib-tab heading="Markup">
+                            <!-- CODE -->
+                            <pre><code class="html" format-html>
+<form>
+    <eat-group-fast
+        label="Some Label"
+        input="eat-money"
+        required="required" 
+        ng-model="vm.money"
+        help="Hint">
+    </eat-group-fast>
+</form>{{vm.money}}
+                    </code></pre>
+                            <!-- CODE -->
+                        </uib-tab>
+                        <uib-tab heading="Javascript">
+                            <!-- CODE -->
+                            <pre><code class="javascript" >
+vm.money = "{{vm.money}}";
+                    </code></pre>
+                            <!-- CODE -->
+                        </uib-tab>
+                    </uib-tabset>
+                </div>
+
+
+                <!-- DATE INPUT -->
+                <div class="section" id="section-date-input">
+                <h2>Date Input</h2>
+                <div class="demo-area">
+                    <form>
+                        <div ipg-input-container>
+                            <label>Some Label</label>
+                            <input type="text" required="required" ng-model="vm.textInput.model"/>
+                            <span class="help-block">Hint</span>
+                        </div>
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+
+                <uib-tabset>
+                    <uib-tab heading="Markup">
+                        <!-- CODE -->
+                        <pre><code class="html" format-html>
+<form>
+    <div ipg-input-container>
+        <label>Some Label</label>
+        <input type="text" required="required" ng-model="vm.textInput.model" />
+        <span>Hint</span>
     </div>
-</div>
+    <button type="submit">Submit</button>
+</form>
+                    </code></pre>
+                        <!-- CODE -->
+                    </uib-tab>
+                    <uib-tab heading="Javascript">
+                        <!-- CODE -->
+                        <pre><code class="html" format-html>
+//nothing
+                    </code></pre>
+                        <!-- CODE -->
+                    </uib-tab>
+                </uib-tabset>
+            </div>
 
 
+                
+
+
+                <!-- FILE INPUT -->
+                <div class="section" id="section-file-input">
+                    <h2>File Input</h2>
+                    <div class="demo-area">
+                        <form>
+                            <div ipg-input-container>
+                                <label>File to upload</label>
+                                <input type="file" ngf-select required="required" ng-model="vm.fileInput.model"></input>
+                                <span  class="help-block">Maximum size: 2Mb</span>
+                            </div>
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
+
+                    <uib-tabset>
+                        <uib-tab heading="Markup">
+                            <!-- CODE -->
+                            <pre><code class="html" format-html>
+<form>
+    <div ipg-input-container>
+        <label>File to upload</label>
+        <input type="file" required="required" ng-model="vm.fileInput.model" />
+        <span>Maximum size: 2Mb</span>
+    </div>
+    <button type="submit">Submit</button>
+</form>
+                    </code></pre>
+                            <!-- CODE -->
+                        </uib-tab>
+                        <uib-tab heading="Javascript">
+                            <!-- CODE -->
+                            <pre><code class="html" format-html>
+//nothing
+                    </code></pre>
+                            <!-- CODE -->
+                        </uib-tab>
+                    </uib-tabset>
+                </div>
+
+
+                <!-- TEXTAREA -->
+                <div class="section" id="section-textarea">
+                    <h2>Textarea</h2>
+                    <div class="demo-area">
+                        <form>
+                            <div ipg-input-container>
+                                <label>File to upload</label>
+                                <textarea required="required" ng-model="vm.fileInput.model"></textarea>
+                                <span  class="help-block">Maximum character: 500</span>
+                            </div>
+                            <button type="submit">Submit</button>
+                        </form>
+                        <ul>
+                            <li>All properties of an input</li>
+                        </ul>
+                    </div>
+
+                    <uib-tabset>
+                        <uib-tab heading="Markup">
+                            <!-- CODE -->
+                            <pre><code class="html" format-html>
+<form>
+    <div ipg-input-container>
+        <label>File to upload</label>
+        <textarea required="required" ng-model="vm.fileInput.model"></textarea>
+        <span>Maximum character: 500</span>
+    </div>
+    <button type="submit">Submit</button>
+</form>
+                    </code></pre>
+                            <!-- CODE -->
+                        </uib-tab>
+                        <uib-tab heading="Javascript">
+                            <!-- CODE -->
+                            <pre><code class="html" format-html>
+//nothing
+                    </code></pre>
+                            <!-- CODE -->
+                        </uib-tab>
+                    </uib-tabset>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </body>
 </html>

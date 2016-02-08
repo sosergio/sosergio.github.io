@@ -1,36 +1,63 @@
-(function(){
-  
-    angular.module("demoApp", [
-        'angular-eat'
-    ])
-        .controller("appController", controller);
+﻿(function () {
+    "use strict";
 
-    controller.$inject = [];
-    function controller() {
-        
+    angular.module('demoApp', [
+            'angular-eat',
+        ])
+        .controller("demo", DemoCtrl)
+        .directive("scrollPosition", ScrollPosition)
+        .directive("formatHtml", FormatHtml)
+    ;
+
+    DemoCtrl.$inject = ["$scope"];
+    function DemoCtrl($scope) {
         var vm = this;
-        vm.message = "Please register using the form below.";
-        vm.participants = 10;
-        vm.user = {
-            
-        };
-        vm.updateChildren = function(){
-            var num = angular.isNumber(vm.user.childrenCount)?vm.user.childrenCount:0;
-            if(!vm.user.children) vm.user.children = new Array(0); 
-            if(vm.user.children.length != num){
-                vm.user.children = new Array(num);
-                for(var i =0; i<num; i++){
-                    vm.user.children[i] = {name:""};
-                }
-            }
-                
-            
+        vm.textInput = {
+            model: ""
         }
-        vm.submit = function(){
-            
+        vm.memdate = {
+            model: new Date()
         }
-        
-        
+        vm.scroll = 0;
+
+        window.vm = vm;
+        activate();
+
+
+        function activate() {
+        }
     }
-    
+
+
+
+
+    ScrollPosition.$inject = ["$window"];
+    function ScrollPosition($window) {
+        return {
+            scope: {
+                scroll: '=scrollPosition'
+            },
+            link: function(scope, element, attrs) {
+                var windowEl = angular.element($window);
+                windowEl.bind('scroll', function() {
+                    scope.scroll = this.pageYOffset;
+                    scope.$apply();
+                });
+               
+            }
+        };
+    }
+
+    function FormatHtml() {
+        return {
+            
+            compile: function (element, attrs) {
+
+                element[0].innerHTML = element[0].innerHTML.replace(new RegExp("<", 'g'), "&lt;")
+                           .replace(new RegExp(">", 'g'), "&gt;");
+
+            }
+        };
+    }
+
 })();

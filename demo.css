@@ -1,0 +1,132 @@
+﻿body {
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+    color:rgba(0,0,0,0.87);
+    margin:0 auto;
+    padding:0;
+}
+
+.container {
+    width:960px;
+    margin:20px auto;
+}
+
+header {
+    
+    padding-top: 30px;
+    padding-bottom: 30px;
+    font-size: 18px;
+    text-align: left;
+    position: relative;
+    padding: 15px 0;
+    color:rgba(255, 255, 255, 0.57);
+    text-shadow: 0 1px 0 rgba(0,0,0,.1);
+    background-color: #303538;
+}
+
+
+header h1 {
+    font-size: 60px;
+    line-height: 1;
+    margin-top: 0;
+    color: #fff;
+}
+
+.fixed {
+    position: fixed;
+    top: 24px;    
+    width: 250px;
+
+}
+
+.section {
+    margin-bottom: 80px;
+}
+
+.section p, .section ul, .section li {
+    font-size: 16px;
+    line-height: 1.31579;
+    font-weight: 400;
+}
+
+.demo-area {
+    display: flex;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+h2 {
+    color: #3A4145;
+    border-bottom:1px solid #3A4145;
+    font-size: 2em;
+    line-height: 1.2em;
+    font-weight: 600;
+    line-height: 40px;
+    letter-spacing: -2px;
+}
+
+.demo-area :first-child {
+    flex: 2 0 0;
+    
+}
+
+pre{
+    border:none;
+    padding:0px;
+}
+
+
+.side-navigation{
+    float:left;
+    width: 250px;
+}
+.main-content{
+    float:right;
+    width: 650px;
+}
+.side-navigation .list-group{
+    border:1px solid #c6c6c6;
+    border-radius: 8px;
+    
+}
+.side-navigation a{
+    display:block;
+    margin:10px 0;
+    color:rgba(0,0,0,0.87);
+    padding:5px 10px 5px 20px;
+    border-bottom:1px solid #c6c6c6;
+    text-decoration: none;
+}
+
+.list-group a:last-child{
+    border:none;
+}
+
+.pacman {
+        width: 0px;
+        height: 0px;
+        border-right: 20px solid transparent;
+        border-top: 20px solid #cc2d29;
+        border-left: 20px solid #cc2d29;
+        border-bottom: 20px solid #cc2d29;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+        }
+.dot{
+        width: 10px;
+        height: 10px;
+        background: white;
+        -moz-border-radius: 50px;
+        -webkit-border-radius: 50px;
+        border-radius: 50px;
+        margin-right: 10px;
+    }
+.logo{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        float:right;
+    }
+header h1{
+        font-size:35px;
+    }
