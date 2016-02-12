@@ -19,6 +19,12 @@
             model: new Date()
         }
         vm.scroll = 0;
+        
+        vm.isMaterial = false;
+        vm.switchMaterial = function(){
+            vm.isMaterial = !vm.isMaterial;
+            document.getElementById("material-css").disabled = !vm.isMaterial;
+        }
 
         window.vm = vm;
         activate();

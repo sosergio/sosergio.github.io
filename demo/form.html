@@ -1,0 +1,102 @@
+<html ng-app="demoApp">
+ <!-- angular-eat dependencies -->
+    <script src="vendor/angular.min.js"></script>
+    <script src="vendor/angular-messages.js"></script>
+    <script type="text/javascript" src="../dist/angular-eat.js"></script>
+    <link id="material-css"  rel="stylesheet" href="../dist/material.css">
+    
+    <!--code needed for the demo page, internal -->
+    <link rel="stylesheet" href="style/demo.css">
+    <script type="text/javascript" src="form.js"></script>
+        
+    <script type="text/ng-template" id="eat-error-messages">
+        <div ng-message="required">This field is required</div>
+        <div ng-message="minlength">This field is too short</div>
+        <div ng-message="min">This field is too short</div>
+    </script>
+
+    <style type="text/css">
+    .container{
+        max-width: 300px;
+    }
+    </style>
+<body>
+
+<div ng-controller="appController as vm">
+    <div class="container">
+        <h2>Register</h2>
+        <form ng-submit="vm.submit()" novalidate="novalidate">
+            <eat-group>
+                <label>Name</label>
+                <input type='text' minlength="2" required ng-model="vm.user.name"/>
+                <eat-help>Your fullname</eat-help>
+                <eat-messages />
+            </eat-group>
+            <br/>
+            
+            <eat-group-fast 
+                input='email' 
+                ng-model="vm.user.email" 
+                label='Your email' 
+                help='Optional, we are not spamming, promise!'>
+            </eat-group-fast>
+            
+            <br/>
+            <eat-group>
+                <label>Your telephone</label>
+                <input type="tel" required ng-model="vm.user.mobile"/>
+                <eat-help>For example: 07456639814</eat-help>
+                <div ng-messages="projectForm.clientName.$error">
+                    <div ng-message="required">This is required.</div>
+                </div>
+            </eat-group>
+            
+            <br/>
+            <eat-group-fast 
+                input='eat-memorable-date'
+                required="required"
+                ng-model="vm.user.birthday" 
+                label='Your birthday' 
+                help='For example: 28 2 1976'>
+            </eat-group-fast>
+            
+            <br/>
+            <eat-group>
+                <label>What option you choose</label>
+                <select required ng-model="vm.user.option">
+                    <option>uno</option>
+                </select>
+                <eat-help>For example: uno</eat-help>
+            </eat-group>
+            
+            <eat-group-fast 
+                input='number'
+                ng-model="vm.user.childrenCount"
+                ng-change="vm.updateChildren()"
+                label='Children count'>
+            </eat-group-fast>
+            
+            <div ng-repeat="c in vm.user.children">
+                <eat-group-fast 
+                    label="Child {{$index+1}}"
+                    input='text' 
+                    required='required' 
+                    ng-model='c.name'
+                    help="Name your child">
+                </eat-group-fast>
+            </div>
+            
+            <br/> <br/> <br/>
+        <button type="submit">Submit</button>
+        </form>
+        
+        <div class="debug">
+            object:{{vm.user}}
+        </div>
+    
+    </div>
+</div>
+
+
+</body>
+</html>

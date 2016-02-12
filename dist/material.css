@@ -1,0 +1,54 @@
+.eat-group {
+  display: block;
+  height: 80px;
+}
+.eat-group .eat-label {
+  transition: 0.15s ease-in-out;
+  position: absolute;
+  padding: 10px 4px 10px 3px;
+  font-size: 1em;
+  z-index: -1;
+}
+.eat-group .eat-input {
+  border: none;
+  background: none;
+  border-bottom: 1px solid gray;
+  outline: none;
+  height: 40px;
+  padding: 10px 4px 10px 3px;
+  font-size: 1em;
+}
+.eat-group > .eat-input {
+  display: block;
+}
+.eat-group .eat-help {
+  transition: 0.15s ease-in-out;
+  transform-origin: 100% 100%;
+  position: absolute;
+  padding: 10px 4px 10px 3px;
+  font-size: 0.8em;
+}
+.eat-group .eat-input-buffet {
+  display: flex;
+}
+.eat-group .eat-input-buffet .eat-input {
+  margin-right: 4px;
+}
+.eat-group .eat-input-buffet .eat-input:last-child {
+  margin-right: 0px;
+  width: 100%;
+}
+.eat-group-invalid {
+  color: red;
+}
+.eat-group-invalid .eat-input {
+  border-bottom: 1px solid red;
+}
+.eat-group-focused .eat-label,
+.eat-group-has-value .eat-label {
+  font-size: 0.8em;
+  margin-top: -25px;
+}
+.eat-group-focused .eat-input {
+  border-bottom: 2px solid blue;
+}
